@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Crossed</title>
+  </head>
+  <body>
+    <crossed-app></crossed-app>
+  </body>
+
+  <script>
+    {
+      const injectJs = (bundle) => {
+        const script = document.createElement('script');
+        script.src = `http://localhost:7000/${bundle}.js`;
+        document.body.appendChild(script);
+      }
+      injectJs('polyfill');
+      injectJs('main');
+    }
+  </script>
+</html>
