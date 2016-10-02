@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  height: 100vh;
+}
+
+.aside {
+  width: 20rem;
+  border-right: 1px solid gray;
+}
+
+.main {
+  flex: 1 auto;
+  padding: 1rem;
+}

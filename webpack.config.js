@@ -28,11 +28,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.ts', '.js'],
+    modulesDirectories: ['node_modules']
   },
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         loader: 'awesome-typescript-loader',
       }, {
         test: /\.html$/,
