@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../reducers/repository';
+import { RepositoryActions } from '../actions/repository';
 import { TreeNode } from '../models/tree-node';
 
 @Component({
@@ -22,16 +23,12 @@ export default class Repository {
 
   constructor(
     private store: Store<AppState>,
+    private repositoryActions: RepositoryActions,
   ) {
     this.node = store.select<AppState>('repository').map(r => r.node)
   }
 
   ngOnInit() {
-    this.store.dispatch({
-      type: 'OPEN_REPOSITORY',
-      payload: {
-        path: process.cwd()
-      }
-    })
+    this.store.dispatch(this.repositoryActions.open(process.cwd()));
   }
 }

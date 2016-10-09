@@ -1,6 +1,8 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { TreeNode } from '../models/tree-node';
+import { RepositoryActions } from '../actions/repository';
+
 
 export interface AppState {
   node: TreeNode,
@@ -17,7 +19,7 @@ export const INITIAL_STATE = {
 export const repositoryReducer: ActionReducer<AppState> =
   (state: AppState=INITIAL_STATE, action: Action) => {
     switch (action.type) {
-    case 'OPEN_REPOSITORY_SUCCESS':
+    case RepositoryActions.OPEN_SUCCESS:
       return Object.assign({}, state, {
         node: action.payload
       })
