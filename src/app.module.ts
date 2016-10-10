@@ -15,7 +15,6 @@ import {
 import { RepositoryEffects } from './effects/repository';
 import GitService from './services/git.service';
 import { repositoryReducer, INITIAL_STATE } from './reducers/repository';
-import { RepositoryActions } from './actions/repository';
 import AppComponent from './components/app.component';
 import Home from './components/home.component';
 import Repository from './components/repository.component';
@@ -42,7 +41,6 @@ import SourceTree from './components/source-tree.component';
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     appRoutingProviders,
     GitService,
-    RepositoryActions
   ],
   bootstrap: [
     AppComponent

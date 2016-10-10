@@ -15,14 +15,13 @@ export class RepositoryEffects {
   constructor(
     private actions$: Actions,
     private gitService: GitService,
-    private repositoryActions: RepositoryActions,
   ) { }
 
   @Effect() open$ = this.actions$
     .ofType(RepositoryActions.OPEN)
     .map(toPayload)
     .switchMap(payload => this.gitService.openRepository(payload)
-      .map(this.repositoryActions.openSuccess)
-      .catch(() => Observable.of(this.repositoryActions.openFail()))
+      .map(RepositoryActions.openSuccess)
+      .catch(() => Observable.of(RepositoryActions.openFail()))
     )
 }

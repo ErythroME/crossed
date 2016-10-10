@@ -10,6 +10,7 @@ import { AppState } from '../reducers/repository';
 import { RepositoryActions } from '../actions/repository';
 import { TreeNode } from '../models/tree-node';
 
+
 @Component({
   selector: 'repository',
   template: require('./repository.html'),
@@ -23,12 +24,11 @@ export default class Repository {
 
   constructor(
     private store: Store<AppState>,
-    private repositoryActions: RepositoryActions,
   ) {
     this.node = store.select<AppState>('repository').map(r => r.node)
   }
 
   ngOnInit() {
-    this.store.dispatch(this.repositoryActions.open(process.cwd()));
+    this.store.dispatch(RepositoryActions.open(process.cwd()));
   }
 }
