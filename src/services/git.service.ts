@@ -1,6 +1,7 @@
 const Git = require('nodegit')
 
 import { Injectable, NgZone } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -22,7 +23,7 @@ class LeafNode extends Node {
 @Injectable()
 export default class GitService {
   private nodeTree: TreeNode;
-  private tree: any;
+  private treeSubject = new BehaviorSubject(null);
 
   constructor(private _ngZone: NgZone) {}
 
@@ -53,7 +54,7 @@ export default class GitService {
         .then(repo => repo.getMasterCommit())
         .then(commit => commit.getTree())
         .then(tree => {
-          this.tree = tree;
+          this.treeSubject.next(tree);
           this.nodeTree = new TreeNode('', '')
           const walker = tree.walk();
           walker.on('entry', t => this.buildTree(this.nodeTree, t.path()))
@@ -70,16 +71,18 @@ export default class GitService {
 
   openFile(path) {
     return new Observable(obs => {
-      if (!this.tree) return obs.error()
-      this.tree.getEntry(path)
-        .then(entry => entry.getBlob())
-        .then(blob => {
-          this._ngZone.run(() => {
-            obs.next(blob.toString())
-            obs.complete()
+      this.treeSubject.subscribe(tree => {
+        if (!tree) return;
+        tree.getEntry(path)
+          .then(entry => entry.getBlob())
+          .then(blob => {
+            this._ngZone.run(() => {
+              obs.next(blob.toString())
+              obs.complete()
+            })
+            return blob.toString()
           })
-          return blob.toString()
-        })
+      })
     })
   }
 }
