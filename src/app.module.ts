@@ -19,6 +19,7 @@ import AppComponent from './components/app.component';
 import Home from './components/home.component';
 import Repository from './components/repository.component';
 import SourceTree from './components/source-tree.component';
+import SourceView from './components/source-view.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import SourceTree from './components/source-tree.component';
     AppComponent,
     Home,
     Repository,
-    SourceTree
+    SourceTree,
+    SourceView,
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},

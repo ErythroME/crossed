@@ -67,4 +67,19 @@ export default class GitService {
         })
     })
   }
+
+  openFile(path) {
+    return new Observable(obs => {
+      if (!this.tree) return obs.error()
+      this.tree.getEntry(path)
+        .then(entry => entry.getBlob())
+        .then(blob => {
+          this._ngZone.run(() => {
+            obs.next(blob.toString())
+            obs.complete()
+          })
+          return blob.toString()
+        })
+    })
+  }
 }

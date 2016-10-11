@@ -23,6 +23,10 @@ export const repositoryReducer: ActionReducer<AppState> =
       return Object.assign({}, state, {
         node: action.payload
       })
+    case RepositoryActions.OPEN_FILE_SUCCESS:
+      return Object.assign({}, state, {
+        text: action.payload
+      })
     default:
       return state;
     }

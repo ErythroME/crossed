@@ -24,4 +24,12 @@ export class RepositoryEffects {
       .map(RepositoryActions.openSuccess)
       .catch(() => Observable.of(RepositoryActions.openFail()))
     )
+
+  @Effect() openFile$ = this.actions$
+    .ofType(RepositoryActions.OPEN_FILE)
+    .map(toPayload)
+    .switchMap(payload => this.gitService.openFile(payload)
+      .map(RepositoryActions.openFileSuccess)
+      .catch(() => Observable.of(RepositoryActions.openFileFail()))
+    )
 }

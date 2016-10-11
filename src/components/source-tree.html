@@ -1,7 +1,7 @@
 <ul class="source-tree">
   <li *ngFor="let node of nodes">
     <div>
-      <a routerLink="/{{node.path}}"
+      <a [routerLink]="['/repo', node.path]"
          routerLinkActive="active">{{node.name}}</a>
     </div>
     <source-tree [nodes]="node.children"></source-tree>
